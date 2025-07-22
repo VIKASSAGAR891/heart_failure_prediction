@@ -1,0 +1,57 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Failure Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: teal;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Heart Failure Prediction</h2>
+    <form method="POST">
+        {% for col in ['age', 'anaemia', 'creatinine_phosphokinase', 'diabetes',
+                       'ejection_fraction', 'high_blood_pressure', 'platelets',
+                       'serum_creatinine', 'serum_sodium', 'sex', 'smoking', 'time'] %}
+            <label>{{ col.replace('_', ' ').title() }}</label>
+            <input type="number" name="{{ col }}" step="any" required><br>
+        {% endfor %}
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction is not none %}
+        <h3>Prediction: {{ 'DEATH EVENT Likely 😟' if prediction == 1 else 'No Death Event 😊' }}</h3>
+        <p>Probability of death event: {{ '%.2f'|format(probability * 100) }}%</p>
+    {% endif %}
+</div>
+</body>
+</html>
