@@ -5,3 +5,4 @@ pyFirmata==1.1.0
 PyMySQL==1.1.1
 pyserial==3.5
 gunicorn==21.2.0
+Flask==2.3.2
